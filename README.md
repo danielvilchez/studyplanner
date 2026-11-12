@@ -25,3 +25,4 @@ StudyPlanner is a web application designed to help university students organize 
 - TypeScript
 - Tailwind CSS
 - ESLint
+- test
