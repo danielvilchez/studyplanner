@@ -25,3 +25,8 @@ StudyPlanner is a web application designed to help university students organize 
 - TypeScript
 - Tailwind CSS
 - ESLint
+- MongoDB
+- Clerk
+
+## Pull Request Policy
+Each request submitted must be reviewed and approved by at least one other team member before it can be merged. 
