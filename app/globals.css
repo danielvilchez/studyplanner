@@ -26,6 +26,6 @@ body {
 }
 
 @theme {
-  --font-sans: var(--font-rubik);
-  --font-heading: var(--font-alfa);
+  --font-sans: var(--font-inter);
+  --font-heading: var(--font-inter); /* Both body and headings use Inter */
 }

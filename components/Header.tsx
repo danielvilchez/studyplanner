@@ -31,7 +31,7 @@ export default function Header({
         >
           ☰
         </button>
-        <h1 className="font-heading text-2xl tracking-wide">StudyPlanner</h1>
+        <h1 className="font-sans font-bold text-2xl tracking-wide">StudyPlanner</h1>
 
         {/* Mobile Navigation Dropdown */}
         {isMobileMenuOpen && (

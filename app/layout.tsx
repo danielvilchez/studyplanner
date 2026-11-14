@@ -1,12 +1,11 @@
 import type { Metadata } from "next";
-import { Rubik, Alfa_Slab_One } from "next/font/google";
+import { Inter } from "next/font/google"; // Changed to Inter
 import "./globals.css";
 import Header from "@/components/Header";
 import Sidebar from "@/components/Sidebar";
 import Footer from "@/components/Footer";
 
-const rubik = Rubik({ subsets: ["latin"], variable: "--font-rubik" });
-const alfa = Alfa_Slab_One({ weight: "400", subsets: ["latin"], variable: "--font-alfa" });
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
 export const metadata: Metadata = {
   title: "StudyPlanner",
@@ -18,19 +17,15 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  
-  // This is the mock user. In Week 5, we will fetch this from Clerk!
   const mockUser = {
     name: "Monday Ogedengbe",
-    email: "mogedengbe@byupathway.edu",
+    email: "monday@example.com",
     initials: "MO"
   };
 
   return (
     <html lang="en">
-      <body className={`${rubik.variable} ${alfa.variable} font-sans bg-[#F8FFE5] text-gray-900 h-screen flex flex-col overflow-hidden`}>
-        
-        {/* Pass the user to the Header */}
+      <body className={`${inter.variable} font-sans bg-[#F8FFE5] text-gray-900 h-screen flex flex-col overflow-hidden`}>
         <Header user={mockUser} />
         
         <div className="flex flex-1 overflow-hidden">
