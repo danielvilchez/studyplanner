@@ -18,7 +18,7 @@
   --color-accent: var(--accent);
   --font-inter: var(--font-inter);
   --font-rubik: var(--font-rubik);
-  --font-alfa: var(--font-alfa-slab-one)
+  --font-alfa: var(--font-alfa-slab-one);
 }
 
 @media (prefers-color-scheme: dark) {
