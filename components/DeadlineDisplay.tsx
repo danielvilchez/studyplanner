@@ -1,9 +1,4 @@
-interface Task {
-  id: number;
-  title: string;
-  description: string;
-  dueDate: string | null;
-}
+import { Task } from "@/lib/types";
 
 export default function DeadlineDisplay({ tasks }: { tasks: Task[] }) {
   if (tasks.length === 0) {

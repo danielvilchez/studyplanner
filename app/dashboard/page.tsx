@@ -1,15 +1,16 @@
 import { mockTasks } from '@/lib/mockData';
 import DashboardSummary from '@/components/DashboardSummary';
 import DeadlineDisplay from '@/components/DeadlineDisplay';
+import { taskStatus } from '@/lib/types';
 
 export default function DashboardPage() {
   // 1. Calculate Stats
-  const pendingCount = mockTasks.filter(t => t.status === 'Pending').length;
-  const completedCount = mockTasks.filter(t => t.status === 'Completed').length;
+  const pendingCount = mockTasks.filter(t => t.status === taskStatus.Pending).length;
+  const completedCount = mockTasks.filter(t => t.status === taskStatus.Completed).length;
   
   // 2. Get upcoming deadlines (Pending + has dueDate, sorted closest to farthest)
   const upcomingTasks = mockTasks
-    .filter(t => t.status === 'Pending' && t.dueDate)
+    .filter(t => t.status === taskStatus.Pending && t.dueDate)
     .sort((a, b) => new Date(a.dueDate!).getTime() - new Date(b.dueDate!).getTime());
 
   // 3. Get recent tasks (Just take the first 3 from the mock data for now)
@@ -49,7 +50,7 @@ export default function DashboardPage() {
                 <div>
                   <h4 className="font-semibold text-gray-900">{task.title}</h4>
                   <span className={`text-xs font-bold px-2 py-1 rounded-full ${
-                    task.status === 'Completed' ? 'bg-[#7DDE92]/20 text-[#2E8B57]' : 'bg-[#3083DC]/20 text-[#3083DC]'
+                    task.status === taskStatus.Completed ? 'bg-[#7DDE92]/20 text-[#2E8B57]' : 'bg-[#3083DC]/20 text-[#3083DC]'
                   }`}>
                     {task.status}
                   </span>

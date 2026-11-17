@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "@/components/Header";
 import Sidebar from "@/components/Sidebar";
 import Footer from "@/components/Footer";
+import { Suspense } from "react";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -40,10 +41,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.variable} ${rubik.variable} ${alfaSlabOne.variable} font-sans bg-[#F8FFE5] text-gray-900 h-screen flex flex-col overflow-hidden`}>
-        <Header user={mockUser} />
+        
+        <Suspense fallback={<header className="bg-primary text-white p-4 shadow-md flex justify-between items-center z-30 relative"></header>}>
+          <Header user={mockUser} />
+        </Suspense>
         
         <div className="flex flex-1 overflow-hidden">
-          <Sidebar />
+          <Suspense fallback={<aside className="hidden md:flex w-64 bg-white border-r border-gray-200 h-full flex-col shrink-0"></aside>}>
+            <Sidebar />
+          </Suspense>
           <div className="flex-1 flex flex-col overflow-hidden">
             <main className="flex-1 overflow-y-auto p-4 md:p-6 bg-[#F8FFE5]">
               {children}

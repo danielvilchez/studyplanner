@@ -1,0 +1,38 @@
+import EditTaskForm from '@/components/EditTaskForm';
+
+type TaskPageProps  = {
+  params: Promise<{ id: string }>;
+};
+import {mockTasks} from '@/lib/mockData';
+import { Suspense } from 'react';
+
+async function EditTaskDisplay({ params }: TaskPageProps){
+    const {id} = await params;
+
+    //replace this with database query
+    const task = mockTasks[parseInt(id)-1];
+
+    if(!task){
+        return(
+            <div className="max-w-4xl mx-auto">
+                <h1 className="text-4xl text-primary">Task Not Found</h1>
+            </div>
+        )
+    }
+
+    return(
+        <div className="max-w-4xl mx-auto">
+            <h1 className="text-4xl text-primary">Edit Task: {task.title}</h1>
+            <EditTaskForm task={task}/>
+        </div>
+    )
+}
+
+
+export default async function EditTaskPage({ params }: TaskPageProps){
+    return (
+        <Suspense fallback={<div className="max-w-4xl mx-auto"><h1 className="text-4xl text-primary">Loading...</h1></div>}>
+            <EditTaskDisplay params={params} />
+        </Suspense>
+    )
+}

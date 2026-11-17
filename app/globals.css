@@ -7,6 +7,8 @@
   --secondary: #3083DC; /*Blue*/
   --success: #7DDE92; /* (Green).*/ 
   --accent: #2EBFA5; /* (Teal)*/ 
+  --danger: #DC3545; /* (Red)*/
+  --operation: #FFC107; /* (Yellow)*/
 }
 
 @theme inline {
@@ -16,6 +18,8 @@
   --color-secondary: var(--secondary);
   --color-success: var(--success);
   --color-accent: var(--accent);
+  --color-danger: var(--danger);
+  --color-operation: var(--operation);
   --font-inter: var(--font-inter);
   --font-rubik: var(--font-rubik);
   --font-alfa: var(--font-alfa-slab-one);

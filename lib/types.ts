@@ -9,15 +9,7 @@ export type Task = {
     title: string,
     description: string,
     status: taskStatus,
-    dueDate?: string
+    dueDate?: Date
 }
 
-/*
-export type Task = {
-    id: number,
-    title: string,
-    description: string,
-    status: taskStatus,
-    dueDate: Date
-}
-*/
+    
