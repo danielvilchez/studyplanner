@@ -20,7 +20,7 @@ export default function DashboardPage() {
       
       {/* Header */}
       <div>
-        <h2 className="font-sans font-bold text-3xl text-[#4E4187]">Dashboard</h2>
+        <h2 className="font-sans font-bold text-3xl text-primary">Dashboard</h2>
         <p className="text-gray-800 mt-2">Welcome back! Here is an overview of your academic workload.</p>
       </div>
 
@@ -36,13 +36,13 @@ export default function DashboardPage() {
         
         {/* 2. Upcoming Deadlines Component */}
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-          <h3 className="font-bold text-xl text-[#4E4187] mb-4 border-b pb-2">Upcoming Deadlines</h3>
+          <h3 className="font-bold text-xl text-primary mb-4 border-b pb-2">Upcoming Deadlines</h3>
           <DeadlineDisplay tasks={upcomingTasks} />
         </div>
 
         {/* 3. Recent Tasks List */}
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-          <h3 className="font-bold text-xl text-[#4E4187] mb-4 border-b pb-2">Recent Tasks</h3>
+          <h3 className="font-bold text-xl text-primary mb-4 border-b pb-2">Recent Tasks</h3>
           <ul className="space-y-4">
             {recentTasks.map(task => (
               <li key={task.id} className="flex justify-between items-center border-b border-gray-100 pb-2 last:border-0">

@@ -1,4 +1,6 @@
+import TaskList from '@/components/TaskList';
 import Link from 'next/link';
+import { mockTasks } from '@/lib/mockData';
 
 export default function TasksPage() {
   return (
@@ -14,8 +16,8 @@ export default function TasksPage() {
       </div>
       
       {/* Task list will go here in Issue #7 */}
-      <div className="bg-white p-6 rounded-xl border border-gray-200">
-        <p className="text-gray-800">Task list coming in Issue #7...</p>
+      <div className="bg-background p-6 rounded-xl">
+        <TaskList tasks={mockTasks}/>
       </div>
     </div>
   );
