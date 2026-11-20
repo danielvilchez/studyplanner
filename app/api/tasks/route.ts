@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 
 // Temporary in-memory array for now (replaces MongoDB for testing)
-let temporaryTaskStore: any[] = [];
+const temporaryTaskStore: unknown[] = [];
 
 export async function POST(request: Request) {
   try {

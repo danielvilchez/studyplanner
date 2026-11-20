@@ -9,7 +9,8 @@ export type Task = {
     title: string,
     description: string,
     status: taskStatus,
-    dueDate?: Date
+    dueDate?: Date,
+    userId: string
 }
 
     

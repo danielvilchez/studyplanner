@@ -14,7 +14,7 @@ export default function DeadlineDisplay({ tasks }: { tasks: Task[] }) {
             <p className="text-sm text-gray-600">{task.description}</p>
           </div>
           <div className="text-right">
-            <span className="text-sm font-semibold text-[#4E4187]">Due: {task.dueDate}</span>
+            <span className="text-sm font-semibold text-[#4E4187]">Due: {task.dueDate?.toDateString()}</span>
           </div>
         </li>
       ))}

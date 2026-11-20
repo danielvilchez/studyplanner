@@ -1,8 +1,11 @@
-import { Task } from "@/lib/types";
+
+import type { ITask } from "@/models/Task";
 import Link from "next/link";
 import { deleteTask } from "@/lib/actions";
 
-export default function TaskCard({task}: {task: Task}){
+type TaskCardProps = ITask & { id: number };
+
+export default function TaskCard({task}: {task: TaskCardProps}){
     return (
     <div className="my-1 w-full h-full rounded-lg bg-white border-secondary/50 border-1 border-t-20 border-t-secondary flex justify-between">
         

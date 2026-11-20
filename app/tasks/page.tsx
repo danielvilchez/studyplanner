@@ -1,6 +1,8 @@
 import TaskList from '@/components/TaskList';
 import Link from 'next/link';
-import { mockTasks } from '@/lib/mockData';
+import { TaskListPlaceholder } from '@/components/TaskList';
+import { Suspense } from 'react';
+
 
 export default function TasksPage() {
   return (
@@ -17,7 +19,11 @@ export default function TasksPage() {
       
       {/* Task list will go here in Issue #7 */}
       <div className="bg-background p-6 rounded-xl">
-        <TaskList tasks={mockTasks}/>
+
+        <Suspense fallback={<TaskListPlaceholder/>}>
+            <TaskList/>
+        </Suspense>
+
       </div>
     </div>
   );

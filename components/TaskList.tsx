@@ -1,7 +1,9 @@
-import { Task } from "@/lib/types";
 import Link from "next/link";
-
-
+import { dbConnect } from "@/lib/dbConnect";
+import { getAllTasks } from "@/models/Task";
+import type { ITask } from "@/models/Task";
+import { connection } from 'next/server'
+type Task = ITask & { id: number };
 
 function TaskListCard({task}: {task: Task}){
 //Define list card to display task
@@ -37,11 +39,27 @@ function TaskListCard({task}: {task: Task}){
 }
 
 
+export function TaskListPlaceholder(){
+  return (
+    <div className="bg-background border-primary/50 border-1 p-4 rounded-lg min-h-50">
+            <ul className="flex flex-col grow justify-stretch h-full mt-10">
+                <li>
+                    <h1 className="text-primary text-4xl text-center">Nothing to see here...</h1>    
+                </li>
+            
+            </ul>
+            
+        </div>
+  );
+}
 
 
 
-export default function TaskList({tasks}:{tasks: Task[]}){
+export default async function TaskList(){
+    await connection();
+    await dbConnect();
 
+    const tasks = await getAllTasks();
 
     if(tasks.length > 0){
         return (
@@ -56,16 +74,6 @@ export default function TaskList({tasks}:{tasks: Task[]}){
             </div>
         )
     } else{
-        return (
-        <div className="bg-background border-primary/50 border-1 p-4 rounded-lg min-h-50">
-            <ul className="flex flex-col grow justify-stretch h-full mt-10">
-                <li>
-                    <h1 className="text-primary text-4xl text-center">Nothing to see here...</h1>    
-                </li>
-            
-            </ul>
-            
-        </div>
-    )
+        return (<TaskListPlaceholder/>)
     }
 }

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Rubik, Alfa_Slab_One } from "next/font/google";
+import { Inter, Alfa_Slab_One } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Sidebar from "@/components/Sidebar";
@@ -8,11 +8,6 @@ import { Suspense } from "react";
 
 const inter = Inter({
   variable: "--font-inter",
-  subsets: ["latin"],
-});
-
-const rubik = Rubik({
-  variable: "--font-rubik",
   subsets: ["latin"],
 });
 
@@ -40,7 +35,7 @@ export default function RootLayout({
 
   return (
     <html lang="en">
-      <body className={`${inter.variable} ${rubik.variable} ${alfaSlabOne.variable} font-sans bg-[#F8FFE5] text-gray-900 h-screen flex flex-col overflow-hidden`}>
+      <body className={`${inter.variable} ${alfaSlabOne.variable} font-sans bg-[#F8FFE5] text-gray-900 h-screen flex flex-col overflow-hidden`}>
         
         <Suspense fallback={<header className="bg-primary text-white p-4 shadow-md flex justify-between items-center z-30 relative"></header>}>
           <Header user={mockUser} />
