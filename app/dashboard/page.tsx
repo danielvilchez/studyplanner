@@ -1,51 +1,44 @@
-import { mockTasks } from '@/lib/mockData';
+import { Suspense } from 'react';
+import { connection } from 'next/server';
+import { dbConnect } from '@/lib/dbConnect';
+import Task from '@/models/Task';
 import DashboardSummary from '@/components/DashboardSummary';
 import DeadlineDisplay from '@/components/DeadlineDisplay';
 
-export default function DashboardPage() {
-  // 1. Calculate Stats
-  const pendingCount = mockTasks.filter(t => t.status === 'Pending').length;
-  const completedCount = mockTasks.filter(t => t.status === 'Completed').length;
-  
-  // 2. Get upcoming deadlines (Pending + has dueDate, sorted closest to farthest)
-  const upcomingTasks = mockTasks
-    .filter(t => t.status === 'Pending' && t.dueDate)
-    .sort((a, b) => new Date(a.dueDate!).getTime() - new Date(b.dueDate!).getTime());
+// 1. Move all the logic into an async component
+async function DashboardContent() {
+  await connection();
+  await dbConnect();
+  const tasks = await Task.find({}).lean();
 
-  // 3. Get recent tasks (Just take the first 3 from the mock data for now)
-  const recentTasks = mockTasks.slice(0, 3);
+  const pendingCount = tasks.filter((t: any) => t.status === 'Pending').length;
+  const completedCount = tasks.filter((t: any) => t.status === 'Completed').length;
+  
+  const upcomingTasks = tasks
+    .filter((t: any) => t.status === 'Pending' && t.dueDate)
+    .sort((a: any, b: any) => new Date(a.dueDate).getTime() - new Date(b.dueDate).getTime());
+
+  const recentTasks = tasks.slice(0, 3);
 
   return (
-    <div className="max-w-5xl mx-auto space-y-8">
-      
-      {/* Header */}
-      <div>
-        <h2 className="font-sans font-bold text-3xl text-[#4E4187]">Dashboard</h2>
-        <p className="text-gray-800 mt-2">Welcome back! Here is an overview of your academic workload.</p>
-      </div>
-
-      {/* 1. Summary Cards Component */}
+    <div className="space-y-8">
       <DashboardSummary 
         pending={pendingCount} 
         completed={completedCount} 
         upcoming={upcomingTasks.length} 
       />
 
-      {/* Grid for Deadlines and Recent Tasks */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        
-        {/* 2. Upcoming Deadlines Component */}
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
           <h3 className="font-bold text-xl text-[#4E4187] mb-4 border-b pb-2">Upcoming Deadlines</h3>
           <DeadlineDisplay tasks={upcomingTasks} />
         </div>
 
-        {/* 3. Recent Tasks List */}
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
           <h3 className="font-bold text-xl text-[#4E4187] mb-4 border-b pb-2">Recent Tasks</h3>
           <ul className="space-y-4">
-            {recentTasks.map(task => (
-              <li key={task.id} className="flex justify-between items-center border-b border-gray-100 pb-2 last:border-0">
+            {recentTasks.map((task: any) => (
+              <li key={task._id.toString()} className="flex justify-between items-center border-b border-gray-100 pb-2 last:border-0">
                 <div>
                   <h4 className="font-semibold text-gray-900">{task.title}</h4>
                   <span className={`text-xs font-bold px-2 py-1 rounded-full ${
@@ -58,9 +51,23 @@ export default function DashboardPage() {
             ))}
           </ul>
         </div>
+      </div>
+    </div>
+  );
+}
 
+// 2. The main page component just renders the header and the Suspense boundary
+export default function DashboardPage() {
+  return (
+    <div className="max-w-5xl mx-auto space-y-8">
+      <div>
+        <h2 className="font-sans font-bold text-3xl text-[#4E4187]">Dashboard</h2>
+        <p className="text-gray-800 mt-2">Welcome back! Here is an overview of your academic workload.</p>
       </div>
 
+      <Suspense fallback={<div className="animate-pulse h-40 bg-gray-200 rounded-xl"></div>}>
+        <DashboardContent />
+      </Suspense>
     </div>
   );
 }
