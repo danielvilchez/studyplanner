@@ -1,16 +1,19 @@
 import EditTaskForm from '@/components/EditTaskForm';
+import { getTaskById } from '@/models/Task';
+import { connection } from 'next/server'
 
 type TaskPageProps  = {
   params: Promise<{ id: string }>;
 };
-import {mockTasks} from '@/lib/mockData';
+
 import { Suspense } from 'react';
 
 async function EditTaskDisplay({ params }: TaskPageProps){
     const {id} = await params;
-
-    //replace this with database query
-    const task = mockTasks[parseInt(id)-1];
+    
+    await connection();
+    
+    const task = await getTaskById(id);
 
     if(!task){
         return(
@@ -20,10 +23,19 @@ async function EditTaskDisplay({ params }: TaskPageProps){
         )
     }
 
+    const taskForClient = {
+    _id: task._id.toString(),
+    title: task.title,
+    description: task.description ?? '',
+    dueDate: task.dueDate ? task.dueDate.toISOString().slice(0, 10) : '',
+    status: task.status,
+    userId: task.userId,
+    };
+
     return(
         <div className="max-w-4xl mx-auto">
-            <h1 className="text-4xl text-primary">Edit Task: {task.title}</h1>
-            <EditTaskForm task={task}/>
+            <h1 className="text-4xl text-primary">Edit Task: {taskForClient.title}</h1>
+            <EditTaskForm {...taskForClient}/>
         </div>
     )
 }

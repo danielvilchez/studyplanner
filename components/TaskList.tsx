@@ -1,11 +1,11 @@
 import Link from "next/link";
 import { dbConnect } from "@/lib/dbConnect";
 import { getAllTasks } from "@/models/Task";
-import type { ITask } from "@/models/Task";
+import type { ITask } from "@/lib/typesAndInterfaces";
 import { connection } from 'next/server'
-type Task = ITask & { id: number };
 
-function TaskListCard({task}: {task: Task}){
+
+function TaskListCard({task}: {task: ITask}){
 //Define list card to display task
     return(
         <div className="my-1 bg-secondary/10 p-1 rounded-sm">
@@ -19,7 +19,7 @@ function TaskListCard({task}: {task: Task}){
                         {task.description}
                     </p>
                     <div>
-                        {task.status ? 
+                        {task.status == "Completed" ? 
                         <div>
                             <strong className="text-success">Completed</strong>
                         </div>
@@ -32,7 +32,7 @@ function TaskListCard({task}: {task: Task}){
                     </div>
                 </section>
 
-                <Link href={`/tasks/${task.id}`} className="bg-accent p-2 rounded-md text-white hover:bg-secondary h-full">View Task</Link>   
+                <Link href={`/tasks/${task._id}`} className="bg-accent p-2 rounded-md text-white hover:bg-secondary h-full">View Task</Link>   
             </div>
         </div>
     )
@@ -65,8 +65,8 @@ export default async function TaskList(){
         return (
             <div className="bg-background border-primary/50 border-1 p-4 rounded-lg ">
                 <ul className="flex flex-col grow">
-                    {tasks.map((task:Task)=>{
-                        return <li key={task.id} >
+                    {tasks.map((task:ITask, index)=>{
+                        return <li key={index} >
                                 <TaskListCard task={task}/>
                             </li>
                     })}

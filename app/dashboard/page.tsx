@@ -4,7 +4,7 @@ import { dbConnect } from '@/lib/dbConnect';
 import Task from '@/models/Task';
 import DashboardSummary from '@/components/DashboardSummary';
 import DeadlineDisplay from '@/components/DeadlineDisplay';
-import { taskStatus } from '@/lib/types';
+import { ITask } from '@/lib/typesAndInterfaces';
 
 // 1. Move all the logic into an async component
 async function DashboardContent() {
@@ -12,12 +12,12 @@ async function DashboardContent() {
   await dbConnect();
   const tasks = await Task.find({}).lean();
 
-  const pendingCount = tasks.filter((t: any) => t.status === 'Pending').length;
-  const completedCount = tasks.filter((t: any) => t.status === 'Completed').length;
+  const pendingCount = tasks.filter((t: ITask) => t.status === 'Pending').length;
+  const completedCount = tasks.filter((t: ITask) => t.status === 'Completed').length;
   
   const upcomingTasks = tasks
-    .filter((t: any) => t.status === 'Pending' && t.dueDate)
-    .sort((a: any, b: any) => new Date(a.dueDate).getTime() - new Date(b.dueDate).getTime());
+    .filter((t: ITask) => t.status === 'Pending' && t.dueDate)
+    .sort((a: ITask, b: ITask) => a.dueDate!.getTime() - b.dueDate!.getTime());
 
   const recentTasks = tasks.slice(0, 3);
 
@@ -38,12 +38,12 @@ async function DashboardContent() {
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
           <h3 className="font-bold text-xl text-primary mb-4 border-b pb-2">Recent Tasks</h3>
           <ul className="space-y-4">
-            {recentTasks.map((task: any) => (
+            {recentTasks.map((task: ITask) => (
               <li key={task._id.toString()} className="flex justify-between items-center border-b border-gray-100 pb-2 last:border-0">
                 <div>
                   <h4 className="font-semibold text-gray-900">{task.title}</h4>
                   <span className={`text-xs font-bold px-2 py-1 rounded-full ${
-                    task.status === taskStatus.Completed ? 'bg-[#7DDE92]/20 text-[#2E8B57]' : 'bg-[#3083DC]/20 text-[#3083DC]'
+                    task.status === "Completed" ? 'bg-[#7DDE92]/20 text-[#2E8B57]' : 'bg-secondary/20 text-secondary'
                   }`}>
                     {task.status}
                   </span>
