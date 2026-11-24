@@ -1,6 +1,7 @@
 import mongoose, { Schema, Document } from 'mongoose';
 
 export interface ITask extends Document {
+  id: number
   title: string;
   description?: string;
   dueDate?: Date;
@@ -21,12 +22,12 @@ const Task = mongoose.models.Task || mongoose.model<ITask>('Task', TaskSchema);
 
 export default Task;
 
-export async function getAllTasks(){
+export async function getAllTasks(): Promise<Array<ITask>> {
 
-  return Task.find({});
+  return await Task.find({});
 }
 
-export async function getTaskById(id:number | string){
+export async function getTaskById(id:number | string):Promise<ITask | null>{
 
-  return Task.findOne({id:id});
+  return await Task.findOne({id:id});
 }
