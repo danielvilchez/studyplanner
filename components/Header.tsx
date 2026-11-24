@@ -21,7 +21,7 @@ export default function Header({
   ];
 
   return (
-    <header className="bg-[#4E4187] text-white p-4 shadow-md flex justify-between items-center z-30 relative">
+    <header className="bg-primary text-white p-4 shadow-md flex justify-between items-center z-30 relative">
       
       {/* Left side: Hamburger (Mobile) + Logo */}
       <div className="flex items-center gap-4 relative">
@@ -45,7 +45,7 @@ export default function Header({
                   onClick={() => setIsMobileMenuOpen(false)}
                   className={`px-4 py-3 font-medium transition-colors ${
                     isActive
-                      ? 'bg-[#4E4187] text-white' 
+                      ? 'bg-primary text-white' 
                       : 'text-gray-800 hover:bg-[#F8FFE5] hover:text-[#3083DC]' 
                   }`}
                 >
