@@ -20,29 +20,29 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${inter.variable} font-sans bg-[#F8FFE5] text-gray-900 h-screen flex flex-col overflow-hidden`}>
-        <ClerkProvider>
-          <Suspense fallback={null}>
+    <ClerkProvider>
+      <html lang="en">
+        <body className={`${inter.variable} font-sans bg-[#F8FFE5] text-gray-900 h-screen flex flex-col overflow-hidden`}>
+          <Suspense fallback={<div className="p-4">Loading...</div>}>
             <Header />
           </Suspense>
 
           <div className="flex flex-1 overflow-hidden">
-            <Suspense fallback={null}>
+            <Suspense fallback={<div className="p-4">Loading...</div>}>
               <Sidebar />
             </Suspense>
 
             <div className="flex-1 flex flex-col overflow-hidden">
               <main className="flex-1 overflow-y-auto p-4 md:p-6 bg-[#F8FFE5]">
-                <Suspense fallback={null}>
+                <Suspense fallback={<div className="p-4">Loading...</div>}>
                   {children}
                 </Suspense>
               </main>
               <Footer />
             </div>
           </div>
-        </ClerkProvider>
-      </body>
-    </html>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }
