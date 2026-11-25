@@ -1,5 +1,6 @@
-﻿import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+﻿
+import type { Metadata } from "next";
+import { Inter, Alfa_Slab_One } from "next/font/google";
 import { Suspense } from "react";
 import { ClerkProvider } from "@clerk/nextjs";
 import "./globals.css";
@@ -7,11 +8,21 @@ import Header from "@/components/Header";
 import Sidebar from "@/components/Sidebar";
 import Footer from "@/components/Footer";
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
+const inter = Inter({
+  variable: "--font-inter",
+  subsets: ["latin"],
+});
+
+const alfaSlabOne = Alfa_Slab_One({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-alfa-slab-one",
+});
 
 export const metadata: Metadata = {
   title: "StudyPlanner",
-  description: "Organize your academic tasks, assignments, and deadlines in one place.",
+  description:
+    "Organize your academic tasks, assignments, and deadlines in one place.",
 };
 
 export default function RootLayout({
@@ -21,8 +32,11 @@ export default function RootLayout({
 }>) {
   return (
     <ClerkProvider>
-      <html lang="en">
-        <body className={`${inter.variable} font-sans bg-[#F8FFE5] text-gray-900 h-screen flex flex-col overflow-hidden`}>
+      <html
+        lang="en"
+        className={`${inter.variable} ${alfaSlabOne.variable} h-full antialiased`}
+      >
+        <body className="min-h-full flex flex-col bg-[#F8FFE5] text-gray-900">
           <Suspense fallback={<div className="p-4">Loading...</div>}>
             <Header />
           </Suspense>
