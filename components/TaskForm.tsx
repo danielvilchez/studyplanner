@@ -45,6 +45,7 @@ export default function TaskForm() {
       router.push('/tasks'); 
       router.refresh(); // Refresh server components
     } catch (err) {
+      console.error(err);
       setError('Something went wrong. Please try again.');
     } finally {
       setIsSubmitting(false);
