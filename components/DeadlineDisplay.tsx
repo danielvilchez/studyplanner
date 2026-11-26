@@ -2,7 +2,7 @@ interface Task {
   _id: string;
   title: string;
   description?: string;
-  dueDate: string | null;
+  dueDate?: string | null; 
 }
 
 export default function DeadlineDisplay({ tasks }: { tasks: Task[] }) {
